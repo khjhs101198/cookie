@@ -11,7 +11,10 @@ function auth(req, res, next) {
   if(req.headers.cookie.indexOf("name")===-1) {
     res.sendStatus(404);
   }
-  else {next();}
+  else {
+    console.log("Pass authentication");
+    next();
+  }
 }
 
 app.get("/", function(req, res){
