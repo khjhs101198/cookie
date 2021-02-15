@@ -9,8 +9,7 @@ app.use(auth, express.static("./public"));
 
 function auth(req, res, next) {
   if(req.headers.cookie.indexOf("name")===-1) {
-    res.sendStatus(404);
-  }
+    res.send("You don't have cookie");
   else {
     next();
   }
