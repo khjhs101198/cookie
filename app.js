@@ -10,7 +10,7 @@ app.use(function(req, res, next){
     next();
   }
   else {
-    res.Status(404).send("The request doesn't have cookie");
+    res.status(404).send("The request doesn't have cookie");
   }
 }, express.static("./public"));
 
