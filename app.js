@@ -12,7 +12,6 @@ function auth(req, res, next) {
     res.sendStatus(404);
   }
   else {
-    res.send("something");
     next();
   }
 }
