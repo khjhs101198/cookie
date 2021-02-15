@@ -12,7 +12,7 @@ function auth(req, res, next) {
     res.sendStatus(404);
   }
   else {
-    console.log("Pass authentication");
+    res.send("something");
     next();
   }
 }
