@@ -16,7 +16,7 @@ app.use(function(req, res, next){
 
 app.get("/", function(req, res){
   if(!req.headers.cookie) {
-    res.set("Set-Cookie", ["name=Jimmy; SameSite=Strict"]);
+    res.set("Set-Cookie", ["name=Jimmy; SameSite=Lax"]);
   }
   res.render("main");
 });
