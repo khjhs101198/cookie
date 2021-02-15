@@ -5,7 +5,14 @@ const jsonParser = express.json();
 
 app.set("view engine", "ejs");
 app.use(urlencoded, jsonParser);
-app.use(express.static("./public"));
+app.use(express.static("./public"), function(req, res, next){
+  if(req.headers.cookie) {
+    next();
+  }
+  else {
+    res.send("Fail to get resources");
+  }
+});
 
 app.get("/", function(req, res){
   if(!req.headers.cookie) {
