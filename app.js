@@ -5,15 +5,7 @@ const jsonParser = express.json();
 
 app.set("view engine", "ejs");
 app.use(urlencoded, jsonParser);
-app.use(auth, express.static("./public"));
-
-function auth(req, res, next) {
-  if(req.headers.cookie.indexOf("name")===-1) {
-    res.send("You don't have cookie");
-  else {
-    next();
-  }
-}
+app.use(express.static("./public"));
 
 app.get("/", function(req, res){
   if(!req.headers.cookie) {
