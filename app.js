@@ -8,6 +8,9 @@ app.use(urlencoded, jsonParser);
 app.use(express.static("./public"));
 
 app.get("/", function(req, res){
+  if(!req.headers.cookie) {
+    res.set("Set-Cookie", ["name=Jimmy; SameSite=Strict"]);
+  }
   res.render("main");
 });
 
