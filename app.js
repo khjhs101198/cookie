@@ -15,7 +15,7 @@ app.get("/", function(req, res){
 });
 
 app.get("/img", function(req, res){
-  res.set("Set-Cookie", "test=getImg");
+  res.set("Set-Cookie", "test=getImg; SameSite=Lax");
   res.sendFile(__dirname+"/public/images/w18.jpg");
 });
 
