@@ -9,7 +9,7 @@ app.use(express.static("./public"));
 
 app.get("/", function(req, res){
 
-  res.set("Set-Cookie", ["name=Jimmy; SameSite=None"]);
+  res.set("Set-Cookie", ["name=Jimmy; SameSite=None; Secure"]);
 
   res.render("main");
 });
