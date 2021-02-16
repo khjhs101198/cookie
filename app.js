@@ -9,7 +9,7 @@ app.use(express.static("./public"));
 
 app.get("/", function(req, res){
   if(!req.headers.cookie) {
-    res.set("Set-Cookie", ["name=Jimmy; SameSite=None"]);
+    res.set("Set-Cookie", ["name=Jimmy; SameSite=Strict"]);
   }
   res.render("main");
 });
@@ -19,7 +19,7 @@ app.get("/img", function(req, res){
   res.sendFile(__dirname+"/public/images/w18.jpg");
 });
 
-app.listen(process.env.PORT||3000, function(err){
+app.listen(process.env.PORT||5000, function(err){
   if(err) throw err;
   console.log("Sever started");
 });
