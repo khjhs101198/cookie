@@ -24,6 +24,10 @@ app.get("/img", function(req, res){
   }
 });
 
+app.get("/harem.js", function(req, res){
+  res.send(__dirname+"/harem.js");
+});
+
 app.listen(process.env.PORT||3000, function(err){
   if(err) throw err;
   console.log("Sever started");
