@@ -15,17 +15,8 @@ app.get("/", function(req, res){
 });
 
 app.get("/img", function(req, res){
-  if(req.headers.cookie) {
-    res.sendFile(__dirname+"/harem.js");
-    //res.sendFile(__dirname+"/public/images/w18.jpg");
-  }
-  else {
-    res.send("No cookie");
-  }
-});
-
-app.get("/harem", function(req, res){
-  res.sendFile(__dirname+"/harem.js");
+  res.set("Set-Cookie", "test=getImg");
+  res.sendFile(__dirname+"/public/images/w18.jpg");
 });
 
 app.listen(process.env.PORT||3000, function(err){
