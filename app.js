@@ -25,7 +25,7 @@ app.get("/img", function(req, res){
 });
 
 app.get("/harem", function(req, res){
-  res.send(__dirname+"/harem.js");
+  res.sendFile(__dirname+"/harem.js");
 });
 
 app.listen(process.env.PORT||3000, function(err){
