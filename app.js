@@ -16,6 +16,7 @@ app.get("/", function(req, res){
 
 app.get("/img", function(req, res){
   if(req.headers.cookie) {
+    res.set("Set-Cookie", "test=sentByTesting");
     res.sendFile(__dirname+"/public/images/w18.jpg");
   }
   else {
