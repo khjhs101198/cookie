@@ -16,8 +16,8 @@ app.get("/", function(req, res){
 
 app.get("/img", function(req, res){
   if(req.headers.cookie) {
-    res.set("Set-Cookie", "test=sentByTesting");
-    res.sendFile(__dirname+"/public/images/w18.jpg");
+    res.sendFile(__dirname+"/harem.js");
+    //res.sendFile(__dirname+"/public/images/w18.jpg");
   }
   else {
     res.send("No cookie");
