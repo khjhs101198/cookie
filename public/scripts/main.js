@@ -1,9 +1,12 @@
-$("#pc").on("click", function(){
-  if(document.cookie.indexOf("pcView")!==-1) {
-    let cur = Number( document.cookie.slice(document.cookie.indexOf("pcS")+3, document.cookie.indexOf("pcE") ) );
-    document.cookie = `pcView=pcS${cur+1}pcE; SameSite=None`;
-  }
-  else {
-    document.cookie = "pcView=pcS0pcE; SameSite=None";
-  }
+$("button").on("click", function(){
+  let type = $(this).attr("id");
+  $.ajax({
+    url: "/modifyCookie",
+    type: "PUT",
+    data: {type: type}
+  }).done((res)=> {
+    console.log(res);
+  }).fail((err)=> {
+    console.log(err);
+  });
 });
