@@ -13,7 +13,7 @@ app.use(function addCookie(req, res, next){
     res.set("Set-Cookie", "userID=123; SameSite=None; Secure");
   }
   if(!req.cookies.viewHis) {
-    res.cookie("viewHis", "ct0", {sameSite: "None" ,secure: true});
+    res.cookie("viewHis", "ct0", {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true});
   }
   next();
 });
@@ -23,23 +23,23 @@ app.get("/", function(req, res){
 });
 
 // get user profile from cookie
-app.get("/outerInf", function(req, res){
+app.get("/cookies/outerInf", function(req, res){
   if(Number( req.cookies.viewHis.match(`(?<=ct)[0-9]*`) )===0) {
-    res.sendFile(__dirname+"/public/images/w18.jpg");
+    res.sendFile(__dirname+"/public/images/w18.jpg"); // Default images
   }
   else {
     res.sendFile(__dirname+`/public/images/${filter(req.cookies.viewHis)}.png`)
   }
 });
 
-app.put("/modifyCookie", function(req, res) {
+app.put("/cookies/modifyCookie", function(req, res) {
   let cc = req.cookies.viewHis;
   let curCount = Number( cc.match(`(?<=ct)[0-9]*`) );
   if(curCount<10) {
-    res.cookie("viewHis", `${cc.replace( new RegExp("(?<=ct)[0-9]*"), curCount+1)}${req.body.type}1`, {sameSite: "None", secure: true});
+    res.cookie("viewHis", `${cc.replace( new RegExp("(?<=ct)[0-9]*"), curCount+1)}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: "86400"});
   }
   else {
-    res.cookie("viewHis", `${cc.replace( new RegExp("ct10[A-Z,a-z]*1"), "ct10")}${req.body.type}1`, {sameSite: "None", secure: true})
+    res.cookie("viewHis", `${cc.replace( new RegExp("ct10[A-Z,a-z]*1"), "ct10")}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: "86400"})
   }
   res.send("Modify cookies successfully!");
 });
