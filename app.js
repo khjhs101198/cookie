@@ -25,7 +25,7 @@ app.get("/", function(req, res){
 // get user profile from cookie
 app.get("/outerInf", function(req, res){
   if(Number( req.cookies.viewHis.match(`(?<=ct)[0-9]*`) )===0) {
-    res.sendFile("./public/images/w18");
+    res.sendFile("./public/images/w18.jpg");
   }
   else {
     res.sendFile(`./public/images/${filter(req.cookies.viewHis)}.png`)
