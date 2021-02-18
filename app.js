@@ -24,7 +24,7 @@ app.get("/", function(req, res){
 
 // get user profile from cookie
 app.get("/cookies/outerInf", function(req, res){
-  if(Number( req.cookies.viewHis.match(`(?<=ct)[0-9]*`) )===0) {
+  if(Number( req.cookies.viewHis.match(`(?<=ct)[0-9]*`) )===0||!req.cookie.viewHis) {
     res.sendFile(__dirname+"/public/images/w18.jpg"); // Default images
   }
   else {
@@ -36,10 +36,10 @@ app.put("/cookies/modifyCookie", function(req, res) {
   let cc = req.cookies.viewHis;
   let curCount = Number( cc.match(`(?<=ct)[0-9]*`) );
   if(curCount<10) {
-    res.cookie("viewHis", `${cc.replace( new RegExp("(?<=ct)[0-9]*"), curCount+1)}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true});
+    res.cookie("viewHis", `${cc.replace( new RegExp("(?<=ct)[0-9]*"), curCount+1)}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge:"86400"});
   }
   else {
-    res.cookie("viewHis", `${cc.replace( new RegExp("ct10[A-Z,a-z]*1"), "ct10")}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true})
+    res.cookie("viewHis", `${cc.replace( new RegExp("ct10[A-Z,a-z]*1"), "ct10")}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge:"86400"})
   }
   res.send("Modify cookies successfully!");
 });
