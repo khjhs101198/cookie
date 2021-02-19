@@ -10,7 +10,7 @@ app.use(urlencoded, jsonParser, cookieParser());
 app.use(express.static("./public"));
 
 function addCookie(req, res, next){
-  if(!req.cookies.viewHis) {
+  if(req.cookies.viewHis===undefined) {
     res.cookie("viewHis", "ct0", {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: 86400});
   }
   next();
