@@ -8,22 +8,20 @@ const filter = require("./public/scripts/filter");
 app.set("view engine", "ejs");
 app.use(urlencoded, jsonParser, cookieParser());
 app.use(express.static("./public"));
-app.use(function addCookie(req, res, next){
-  if(!req.cookies.userID){ // if no user data cookie
-    res.set("Set-Cookie", "userID=123; SameSite=None; Path=/; Secure");
-  }
+
+function addCookie(req, res, next){
   if(!req.cookies.viewHis) {
     res.cookie("viewHis", "ct0", {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: 86400});
   }
   next();
-});
+}
 
 app.get("/", function(req, res){
   res.render("main");
 });
 
 // get user profile from cookie
-app.get("/cookies/outerInf", function(req, res){
+app.get("/cookies/outerInf", addCookie, function(req, res){
   if(req.cookies.viewHis===undefined||Number( req.cookies.viewHis.match(`(?<=ct)[0-9]*`) )===0) {
     res.sendFile(__dirname+"/public/images/w18.jpg"); // Default images
   }
@@ -32,7 +30,7 @@ app.get("/cookies/outerInf", function(req, res){
   }
 });
 
-app.put("/cookies/modifyCookie", function(req, res) {
+app.put("/cookies/modifyCookie", addCookie, function(req, res) {
   let cc = req.cookies.viewHis;
   let curCount = Number( cc.match(`(?<=ct)[0-9]*`) );
   if(curCount<10) {
