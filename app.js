@@ -13,7 +13,7 @@ app.use(function addCookie(req, res, next){
     res.set("Set-Cookie", "userID=123; SameSite=None; Path=/; Secure");
   }
   if(!req.cookies.viewHis) {
-    res.cookie("viewHis", "ct0", {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: "86400"});
+    res.cookie("viewHis", "ct0", {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: 86400});
   }
   next();
 });
