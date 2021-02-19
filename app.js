@@ -22,7 +22,7 @@ app.get("/", function(req, res){
 
 // get user profile from cookie
 app.get("/cookies/outerInf", function(req, res){
-  if(req.cookies.viewHis===undefined||Number( req.cookies.viewHis.match(`(?<=ct)[0-9]*`) )===0) {
+  if(req.cookies.viewHis===undefined) {
     res.sendFile(__dirname+"/public/images/w18.jpg"); // Default images
   }
   else {
@@ -30,14 +30,19 @@ app.get("/cookies/outerInf", function(req, res){
   }
 });
 
-app.put("/cookies/modifyCookie", addCookie, function(req, res) {
-  let cc = req.cookies.viewHis;
-  let curCount = Number( cc.match(`(?<=ct)[0-9]*`) );
-  if(curCount<10) {
-    res.cookie("viewHis", `${cc.replace( new RegExp("(?<=ct)[0-9]*"), curCount+1)}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: 86400});
+app.put("/cookies/modifyCookie", function(req, res) {
+  if(req.cookies.viewHis===undefined) {
+    res.cookie("viewHis", `ct1${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: 86400});
   }
   else {
-    res.cookie("viewHis", `${cc.replace( new RegExp("ct10[A-Z,a-z]*1"), "ct10")}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: 86400});
+    let cc = req.cookies.viewHis;
+    let curCount = Number( cc.match(`(?<=ct)[0-9]*`) );
+    if(curCount<10) {
+      res.cookie("viewHis", `${cc.replace( new RegExp("(?<=ct)[0-9]*"), curCount+1)}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: 86400});
+    }
+    else {
+      res.cookie("viewHis", `${cc.replace( new RegExp("ct10[A-Z,a-z]*1"), "ct10")}${req.body.type}1`, {sameSite: "None" ,secure: true, path: "/cookies", httpOnly: true, maxAge: 86400});
+    }
   }
   res.send("Modify cookies successfully!");
 });
