@@ -1,9 +1,9 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
+const filter = require("./public/scripts/filter");
 const app = express();
 const urlencoded = express.urlencoded({extended: false});
 const jsonParser = express.json();
-const cookieParser = require("cookie-parser");
-const filter = require("./public/scripts/filter");
 
 app.set("view engine", "ejs");
 app.use(urlencoded, jsonParser, cookieParser());
@@ -13,7 +13,6 @@ app.get("/", function(req, res){
   res.render("main");
 });
 
-// get user profile from cookie
 app.get("/cookies/outerInf", function(req, res){
   if(req.cookies.viewHis===undefined) {
     res.sendFile(__dirname+"/public/images/w18.jpg"); // Default images
