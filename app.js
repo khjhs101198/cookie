@@ -39,6 +39,19 @@ app.put("/cookies/modifyCookie", function(req, res) {
   res.send("Modify cookies successfully!");
 });
 
+app.get("/apiKey", checkKey, function(req, res) {
+  res.send("Get the API_KEY");
+});
+
+function checkKey(req, res, next) {
+  if(process.env.API_KEY) {
+    next();
+  }
+  else {
+    res.send("There is no API_KEY");
+  }
+}
+
 app.listen(process.env.PORT||5000, function(err){
   if(err) throw err;
   console.log("Sever started");
