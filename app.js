@@ -43,6 +43,10 @@ app.get("/apiKey", checkKey, function(req, res) {
   res.send("Get the API_KEY");
 });
 
+app.get("/carJson, function(req, res) {
+  res.json({car_license_plate: "ABC123", team_name: "測試小隊", car_latitude: null, car_longitude: null, car_status: 0});
+});
+
 function checkKey(req, res, next) {
   if(process.env.API_KEY) {
     next();
